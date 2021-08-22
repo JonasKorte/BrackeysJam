@@ -11,6 +11,8 @@
 /[Mm]emoryCaptures/
 
 BrackeysJamGame/Library/PackageCache
+BrackeysJamGame/Library/PackageCache/**
+BrackeysJamGame/Library/PackageCache/**.*
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
 
