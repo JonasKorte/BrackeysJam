@@ -12,9 +12,6 @@ public class EnemyCombat : MonoBehaviour, IHealth
     int currentHealth;
     float lastMeleeHit;
 
-    //later will replace it with a static reference to player instance, once there's a main player script or something
-    Transform playerPos;
-
     private void Awake()
     {
         currentHealth = maxHealth;
@@ -25,17 +22,27 @@ public class EnemyCombat : MonoBehaviour, IHealth
     {
         if (Time.time > lastMeleeHit + meleeCooldown)
         {
-            if (Vector3.Distance(transform.position, playerPos.position) < meleeMaxDistance)
-            {
-                IHealth _healthSystem = playerPos.transform.gameObject.GetComponent<IHealth>();
+            Collider[] colliders = Physics.OverlapSphere(transform.position, meleeMaxDistance);
 
-                if (_healthSystem != null)
+            for (int i = 0; i < colliders.Length; i++)
+            {
+                if (colliders[i].transform.gameObject.CompareTag("Player"))
                 {
-                    _healthSystem.DoDamage(meleeDamage);
-                }
-                else
-                {
-                    Debug.LogError("Expected player to have a health system but didn't find one", this);
+                    if (Vector3.Distance(transform.position, colliders[i].transform.position) < meleeMaxDistance)
+                    {
+                        IHealth _healthSystem = colliders[i].transform.gameObject.GetComponent<IHealth>();
+
+                        if (_healthSystem != null)
+                        {
+                            _healthSystem.DoDamage(meleeDamage);
+                        }
+                        else
+                        {
+                            Debug.LogError("Expected player to have a health system but didn't find one", this);
+                        }
+                    }
+
+                    break;
                 }
             }
         }
@@ -53,6 +60,7 @@ public class EnemyCombat : MonoBehaviour, IHealth
         if (currentHealth <= 0)
         {
             //die
+            Destroy(this.gameObject);
         }
     }
 }

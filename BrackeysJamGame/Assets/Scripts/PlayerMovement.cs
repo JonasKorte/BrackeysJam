@@ -36,6 +36,24 @@ public class PlayerMovement : MonoBehaviour
             speedMultiplier = speed;
             isSprinting = false;
         }
+
+        RotateTowardsMouse();
+    }
+
+    private void RotateTowardsMouse()
+    {
+        Vector3 mouse = Input.mousePosition;
+
+        Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(new Vector3(
+                                                            mouse.x,
+                                                            mouse.y,
+                                                            transform.position.y));
+
+        Debug.Log($"{mouseWorld.x},{mouseWorld.y},{mouseWorld.z}");
+
+        mouseWorld.y = transform.position.y;
+
+        transform.LookAt(mouseWorld);
     }
 
     private void FixedUpdate()

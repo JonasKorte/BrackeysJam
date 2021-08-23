@@ -8,15 +8,28 @@ public class PlayerCombat : MonoBehaviour, IHealth
     [SerializeField] float meleeCooldown = 0.5f;
     [SerializeField] float meleeMaxDistance = 2f;
     [SerializeField] int meleeDamage = 50;
-    [SerializeField] Transform cam;
+
+    [SerializeField] KeyCode shootButton = KeyCode.Mouse0;
+    [SerializeField] GameObject bulletPrefab;
+    [SerializeField] Transform spawnFrom;
+    [SerializeField] float shootCooldown = 0.5f;
 
     int currentHealth;
     float lastMeleeHit;
+    float lastShot;
 
     private void Awake()
     {
         currentHealth = maxHealth;
         lastMeleeHit = Time.time;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(shootButton))
+        {
+            Shoot();
+        }
     }
 
     public void MeleeAttack()
@@ -27,7 +40,7 @@ public class PlayerCombat : MonoBehaviour, IHealth
 
             //play melee animation
 
-            if (Physics.Raycast(cam.transform.position, cam.transform.TransformDirection(Vector3.forward), out RaycastHit hit, Mathf.Infinity))
+            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out RaycastHit hit, Mathf.Infinity))
             {
                 IHealth _healthSystem = hit.transform.gameObject.GetComponent<IHealth>();
 
@@ -39,6 +52,16 @@ public class PlayerCombat : MonoBehaviour, IHealth
                     }
                 }
             }
+        }
+    }
+
+    public void Shoot()
+    {
+        if (Time.time > lastShot + shootCooldown)
+        {
+            lastShot = Time.time;
+
+            Instantiate(bulletPrefab, spawnFrom.position, spawnFrom.rotation);
         }
     }
 

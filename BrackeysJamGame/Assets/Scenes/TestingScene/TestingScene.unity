@@ -137,6 +137,7 @@ GameObject:
   - component: {fileID: 98419298}
   - component: {fileID: 98419303}
   - component: {fileID: 98419302}
+  - component: {fileID: 98419304}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -217,7 +218,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.8291702, y: 0.49922657, z: -3.3137074}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1842436436}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -249,8 +251,28 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &98419304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 98419297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5aa7584fec819348b8a11a80c8e51c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  meleeCooldown: 0.5
+  meleeMaxDistance: 2
+  meleeDamage: 50
+  shootButton: 323
+  bulletPrefab: {fileID: 8102546168523602676, guid: ff35495064988db4ba360d602b859940, type: 3}
+  spawnFrom: {fileID: 1842436436}
+  shootCooldown: 0.5
 --- !u!1 &588965153
 GameObject:
   m_ObjectHideFlags: 0
@@ -265,6 +287,7 @@ GameObject:
   - component: {fileID: 588965154}
   - component: {fileID: 588965159}
   - component: {fileID: 588965158}
+  - component: {fileID: 588965160}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -385,6 +408,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Enemy: {fileID: 588965158}
   Player: {fileID: 98419301}
+--- !u!114 &588965160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 588965153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff471becacf658447bee70aa0d15bb82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  meleeCooldown: 0.5
+  meleeMaxDistance: 2
+  meleeDamage: 20
 --- !u!1 &652483525
 GameObject:
   m_ObjectHideFlags: 0
@@ -939,6 +978,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1842436435
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1842436436}
+  m_Layer: 0
+  m_Name: shootOrigin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1842436436
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1842436435}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.895}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 98419301}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &8455460077743024830
 PrefabInstance:
